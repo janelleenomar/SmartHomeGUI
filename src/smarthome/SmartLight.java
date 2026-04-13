@@ -24,15 +24,21 @@ public class SmartLight extends Device {
 
         if (choice == 0) {
             String input = JOptionPane.showInputDialog(parent, "Enter percentage to dim (0-100):");
+
             if (input != null) {
                 try {
                     int dim = Integer.parseInt(input);
+                    if (dim <= 0 || dim > 100) {
+                        JOptionPane.showMessageDialog(parent, "Invalid number.");
+                        return false;
+                    }
                     this.brightness = Math.max(0, this.brightness - (this.brightness * dim / 100));
                     return true; // Successfully dimmed
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(parent, "Invalid number.");
                 }
             }
+
         } else if (choice == 1) {
             String newColor = JOptionPane.showInputDialog(parent, "Enter color:", color);
             if (newColor != null) {
